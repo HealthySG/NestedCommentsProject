@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/NestedCommentsProject/static/css/main.3989ef39.css",
-    "main.js": "/NestedCommentsProject/static/js/main.37bf82c8.js",
+    "main.css": "/NestedCommentsProject/static/css/main.e142c0e2.css",
+    "main.js": "/NestedCommentsProject/static/js/main.e7a98c0b.js",
     "static/js/787.15f4d49d.chunk.js": "/NestedCommentsProject/static/js/787.15f4d49d.chunk.js",
     "index.html": "/NestedCommentsProject/index.html",
-    "main.3989ef39.css.map": "/NestedCommentsProject/static/css/main.3989ef39.css.map",
-    "main.37bf82c8.js.map": "/NestedCommentsProject/static/js/main.37bf82c8.js.map",
+    "main.e142c0e2.css.map": "/NestedCommentsProject/static/css/main.e142c0e2.css.map",
+    "main.e7a98c0b.js.map": "/NestedCommentsProject/static/js/main.e7a98c0b.js.map",
     "787.15f4d49d.chunk.js.map": "/NestedCommentsProject/static/js/787.15f4d49d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3989ef39.css",
-    "static/js/main.37bf82c8.js"
+    "static/css/main.e142c0e2.css",
+    "static/js/main.e7a98c0b.js"
   ]
 }
