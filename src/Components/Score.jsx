@@ -11,7 +11,7 @@ function Score(props) {
             className={styles.scorecontrol}
             onClick={handleUpvote}
           />
-          <p>{score}</p>
+          <p style={{width:'20px',textAlign:'center'}}>{score}</p>
           <img
             src="https://alishirani1384.github.io/Interactive-comments-section/images/icon-minus.svg"
             className={styles.scorecontrol}
