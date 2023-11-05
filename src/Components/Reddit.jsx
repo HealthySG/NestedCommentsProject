@@ -61,7 +61,6 @@ function Reddit({ posts }) {
     let postcreatedId = posts.createdAt;
     dispatch(updateComment({ postcreatedId, commentBody }));
     setEditMode(false);
-    setcommentBody("");
   };
   const handleNo = () => {
     setshowModal(false);
