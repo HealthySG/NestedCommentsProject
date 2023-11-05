@@ -74,7 +74,6 @@ function Reddit({ posts }) {
     <div style={{ backgroundColor: "#F5F6FA" }}>
       {showModal && (
         <>
-        {/* <MyModal handleNo={handleNo} handleYes={handleYes}/> */}
           <div className={styles.modalwrapper} onClick={handleNo}></div>
           <div className={styles.modalContainer}>
             <h3 className={styles.modalheading}>Delete Comment</h3>
@@ -94,14 +93,7 @@ function Reddit({ posts }) {
         </>
       )}
       <div
-        style={{
-          display: "flex",
-          width: "40%",
-          backgroundColor: "#FFFFFF",
-          border: "1px solid white",
-          marginTop: "10px",
-          marginLeft: "20px",
-        }}
+        className={styles.commentContainer}
       >
         <div className={styles.cscore}>
           <img
@@ -118,14 +110,7 @@ function Reddit({ posts }) {
         </div>
         <div style={{ marginLeft: "5px" }}>
           <div
-            style={{
-              marginLeft: "5px",
-              padding: "0px",
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              // border: "1px solid violet",
-            }}
+            className={styles.userContent}
           >
             <div className={styles.cuser}>
               <img className={styles.usrimg} src={posts.avatar} />
@@ -175,7 +160,6 @@ function Reddit({ posts }) {
             </div>
           </div>
           <div className={styles.ctext}>
-            {/* <span className={styles.replyto} /> */}
             {editMode ? (
               <div
                 style={{
@@ -186,14 +170,7 @@ function Reddit({ posts }) {
               >
                 <textarea
                   autoFocus
-                  style={{
-                    height: "90px",
-                    border: "1px solid hsl(238, 40%, 52%)",
-                    borderRadius: "8px",
-                    padding: "10px",
-                    fontFamily: "sans-serif",
-                    fontSize: "15px",
-                  }}
+                  className={styles.updateInputContainer}
                   onChange={handleChange}
                   value={commentBody}
                 >
