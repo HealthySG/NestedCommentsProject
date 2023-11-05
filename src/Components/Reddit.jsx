@@ -8,6 +8,12 @@ import {
   downVote,
 } from "../store/slices/commentsSlice";
 import styles from "./styles.module.css";
+import MyModal from "./MyModal";
+import Score from "./Score";
+import UserInfo from "./UserInfo";
+import Actions from "./Actions";
+import CommentText from "./CommentText";
+import Reply from "./Reply";
 function Reddit({ posts }) {
   const [showinput, setshowinput] = useState(false);
   const [commentBody, setcommentBody] = useState(posts.message);
@@ -34,17 +40,6 @@ function Reddit({ posts }) {
     dispatch(addComment({ parentcommentId, newComments }));
     setshowinput(false);
   };
-  function convertDateToMonths(date) {
-    date = new Date(date);
-    const currDate = new Date();
-
-    const monthsDifference =
-      currDate.getMonth() -
-      date.getMonth() +
-      12 * (currDate.getFullYear() - date.getFullYear());
-
-    return Math.abs(monthsDifference);
-  }
   const handleDelete = () => {
     setshowModal(true);
   };
@@ -71,122 +66,40 @@ function Reddit({ posts }) {
   };
   return (
     <div style={{ backgroundColor: "#F5F6FA" }}>
+      {/* Modal Opens when Delete Event happens */}
       {showModal && (
         <>
-          <div className={styles.modalwrapper} onClick={handleNo}></div>
-          <div className={styles.modalContainer}>
-            <h3 className={styles.modalheading}>Delete Comment</h3>
-            <p className={styles.modalParagraph}>
-              Are you sure you want to delete this comment? <br />
-              This will remove the comment and cant be <br />
-              undone.
-            </p>
-
-            <button onClick={handleNo} className={styles.no}>
-              NO, CANCEL
-            </button>
-            <button onClick={handleYes} className={styles.yes}>
-              YES, DELETE
-            </button>
-          </div>
+          <MyModal handleNo={handleNo} handleYes={handleYes}/>
         </>
       )}
+      {/*  Post Container includes:- 
+              Vote on Post
+              User Profile Related InforMation
+              Actions (Edit, Delete, Reply)
+              Comment Text 
+              Break All into seperate components
+      */}
       <div
         className={styles.commentContainer}
       >
-        <div className={styles.cscore}>
-          <img
-            src="https://alishirani1384.github.io/Interactive-comments-section/images/icon-plus.svg"
-            className={styles.scorecontrol}
-            onClick={handleUpvote}
-          />
-          <p>{posts.voteCount}</p>
-          <img
-            src="	https://alishirani1384.github.io/Interactive-comments-section/images/icon-minus.svg"
-            className={styles.scorecontrol}
-            onClick={handleDownvote}
-          />
-        </div>
+        <Score score={posts.voteCount} handleUpvote={handleUpvote} handleDownvote={handleDownvote}/>
         <div style={{ marginLeft: "5px" }}>
           <div
             className={styles.userContent}
           >
-            <div className={styles.cuser}>
-              <img className={styles.usrimg} src={posts.avatar} />
-              <p className={styles.usrname}>{posts.author}</p>
-              <p className={styles.time}>{` ${
-                convertDateToMonths(posts.createdAt) == 0
-                  ? "1 Days Ago"
-                  : "1 Months Ago"
-              }`}</p>
-            </div>
-            <div className={styles.ccontrols}>
-              <a className={styles.delete} onClick={handleDelete}>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <img
-                    style={{ margin: "4px" }}
-                    src="https://alishirani1384.github.io/Interactive-comments-section/images/icon-delete.svg"
-                  />
-                  Delete
-                </div>
-              </a>
-
-              <a className={styles.edit} onClick={handleEdit}>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <img
-                    style={{ margin: "4px" }}
-                    src="https://alishirani1384.github.io/Interactive-comments-section/images/icon-edit.svg"
-                  />
-                  Edit
-                </div>
-              </a>
-
-              <a className={styles.reply} onClick={handleNewComment}>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <img
-                    style={{ margin: "4px" }}
-                    src="	https://alishirani1384.github.io/Interactive-comments-section/images/icon-reply.svg"
-                  />
-                  Reply
-                </div>
-              </a>
-            </div>
+            <UserInfo avatar={posts.avatar} author={posts.author} createdAt={posts.createdAt}/>
+            <Actions handleDelete={handleDelete} handleEdit={handleEdit} handleNewComment={handleNewComment}/>
           </div>
-          <div className={styles.ctext}>
-            {editMode ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "110px",
-                }}
-              >
-                <textarea
-                  autoFocus
-                  className={styles.updateInputContainer}
-                  onChange={handleChange}
-                  value={commentBody}
-                >
-                  {posts.message}
-                </textarea>
-                <button className={styles.updateButton} onClick={handleUpdate}>
-                  Update
-                </button>
-              </div>
-            ) : (
-              <span>{posts.message}</span>
-            )}
-          </div>
+          <CommentText editMode={editMode} handleChange={handleChange} commentBody={commentBody} text={posts.message} handleUpdate={handleUpdate}/>
         </div>
       </div>
-
-      <div style={{ margin: "10px", paddingLeft: "45px" }}>
+      {/*  Comments on Post
+           Comments will also acts like a Post so 
+           Recursiverly calling the same component for 
+           comment as well. 
+       */}
+       {/* For Identation used paddingLeft */}
+      <div style={{ margin: "10px", paddingLeft: "45px" }}>  
         {posts.hasOwnProperty("comments") &&
           posts.comments.map((comment) => {
             return (
@@ -196,29 +109,8 @@ function Reddit({ posts }) {
             );
           })}
       </div>
-      {showinput && (
-        <div
-          style={{
-            display: "flex",
-            width: "40%",
-            height: "102px",
-          }}
-        >
-          <img
-            src="https://alishirani1384.github.io/Interactive-comments-section/images/avatars/image-juliusomo.webp"
-            alt=""
-            className={styles.usrimg}
-          />
-          <textarea
-            onChange={handleChange}
-            className={styles.replytextarea}
-            placeholder="Add a comment..."
-          ></textarea>
-          <button onClick={handleAdd} className={styles.buprimary}>
-            SEND
-          </button>
-        </div>
-      )}
+      {/* Reply Component through which we can add comment on Post*/}
+      <Reply showinput={showinput} handleAdd={handleAdd} handleChange={handleChange}/>
     </div>
   );
 }

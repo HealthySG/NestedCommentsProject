@@ -5,10 +5,12 @@ import { fetchcomments } from "./store/thunks/fetchdata";
 import { useSelector, useDispatch } from "react-redux";
 function App() {
   const dispatch = useDispatch();
+  // calling Api 
   useEffect(() => {
-    dispatch(fetchcomments());
+    dispatch(fetchcomments());   
   }, []);
   const listOfPosts = useSelector((state) => state.comment.comments) || [];
+  // fetch response of Api from redux store using useSelector hook
   return (
     <div className="App">
       {Array.isArray(listOfPosts)
