@@ -19,7 +19,7 @@ function Actions(props) {
         <a className={styles.edit} onClick={handleEdit}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <img
-              style={{ margin: "4px" }}
+              style={{ margin: "4px 4px 2px 2px" }}
               src="https://alishirani1384.github.io/Interactive-comments-section/images/icon-edit.svg"
             />
             Edit
